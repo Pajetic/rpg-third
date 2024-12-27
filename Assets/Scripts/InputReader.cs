@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions
-{
+public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions {
     public event Action JumpEvent;
     public event Action DodgeEvent;
 
@@ -40,5 +39,8 @@ public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context) {
         MoveVector = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context) {
     }
 }

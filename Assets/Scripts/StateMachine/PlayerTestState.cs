@@ -14,11 +14,12 @@ public class PlayerTestState : PlayerBaseState {
         Vector3 moveDelta = Vector3.zero;
         moveDelta.x = stateMachine.InputReader.MoveVector.x;
         moveDelta.z = stateMachine.InputReader.MoveVector.y;
-        stateMachine.CharacterController.Move(moveDelta * stateMachine.MoveSpeed * deltaTime);
+        stateMachine.CharacterController.Move(moveDelta.normalized * stateMachine.FreeLookMoveSpeed * deltaTime);
 
         if (stateMachine.InputReader.MoveVector != Vector2.zero) {
             stateMachine.transform.rotation = Quaternion.LookRotation(moveDelta);
         }
+        stateMachine.Animator.SetFloat("FreeLookMoveSpeed", moveDelta.magnitude, 0.1f, deltaTime);
     }
 
     public override void Exit() {
