@@ -9,6 +9,8 @@ public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions
     public event Action JumpEvent;
     public event Action DodgeEvent;
 
+    public Vector2 MoveVector {  get; private set; }
+
     private PlayerInput playerInput;
     private void Start() {
         playerInput = new PlayerInput();
@@ -34,5 +36,9 @@ public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions
         }
 
         DodgeEvent?.Invoke();
+    }
+
+    public void OnMove(InputAction.CallbackContext context) {
+        MoveVector = context.ReadValue<Vector2>();
     }
 }

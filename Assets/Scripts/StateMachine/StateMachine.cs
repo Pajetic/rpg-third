@@ -10,7 +10,7 @@ public class StateMachine : MonoBehaviour {
         currentState?.Tick(Time.deltaTime);
     }
 
-    private void SwitchState(State state) {
+    protected void SwitchState(State state) {
         currentState?.Exit();
         currentState = state;
         currentState?.Enter();
