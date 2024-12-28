@@ -11,9 +11,7 @@ public class PlayerTestState : PlayerBaseState {
     }
 
     public override void Tick(float deltaTime) {
-        Vector3 moveDelta = Vector3.zero;
-        moveDelta.x = stateMachine.InputReader.MoveVector.x;
-        moveDelta.z = stateMachine.InputReader.MoveVector.y;
+        Vector3 moveDelta = CalculateMovement();
         stateMachine.CharacterController.Move(moveDelta.normalized * stateMachine.FreeLookMoveSpeed * deltaTime);
 
         if (stateMachine.InputReader.MoveVector != Vector2.zero) {
@@ -24,5 +22,16 @@ public class PlayerTestState : PlayerBaseState {
 
     public override void Exit() {
 
+    }
+
+    private Vector3 CalculateMovement() {
+        Vector3 forward = stateMachine.MainCameraTransform.forward;
+        Vector3 right = stateMachine.MainCameraTransform.right;
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        return forward * stateMachine.InputReader.MoveVector.y + right * stateMachine.InputReader.MoveVector.x;
     }
 }
